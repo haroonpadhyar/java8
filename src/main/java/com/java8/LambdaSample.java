@@ -1,4 +1,4 @@
-package com.java8.lambda;
+package com.java8;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,34 +9,38 @@ import java.util.List;
 public class LambdaSample {
 
   public static void main(String[] args) {
-    List<String> strList = Arrays.asList("a1", "a2", "b1", "c2", "c1");
+
+    //List Sort and print
+    List<String> strList = Arrays.asList("Apple", "Banana", "Guava", "Pear", "Plum");
     strList.sort((s1, s2)-> s1.compareTo(s2));
     strList.forEach(s -> System.out.println(s));
     strList.forEach(System.out::println);
 
-    System.out.println("\n Multi Statement");
+    // Multi statement in Lambda expression
+    System.out.println("\nMulti Statement");
     strList.forEach(s -> {
-      if (s.startsWith("a"))
+      if (s.startsWith("A"))
         System.out.println(s);
     });
 
 
-    System.out.println("Calling method");
-//    int a=1,b=2;
+    // Calling method with Lambda
+    System.out.println("\nCalling method");
     CalculatorImp cal = new CalculatorImp();
-    int cal1 = cal.cal((a, b) -> a * b);
+    int cal1 = cal.doCal((a, b) -> a * b);
     System.out.println(cal1);
 
   }
 
   public static class CalculatorImp{
     int a = 1, b= 2;
-    public int cal(Calculator calculator){
+    public int doCal(Calculator calculator){
       return calculator.cal(a, b);
     }
   }
 
-//  @FunctionalInterface
+  @FunctionalInterface // make sure only one abstract method otherwise compile time error.
+  //As long as Interface has only one abstract method, any arbitrary interface can be used as Lambda expression.
   public interface Calculator {
     public int cal(int a, int b);
   }
